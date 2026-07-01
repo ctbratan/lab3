@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Считалочка — командная версия");
 
     teamLabel = new QLabel(this);
-    teamLabel->setText("Команда «Счётная палата» | Севрук Андрей, Миляуова Анна, Чопко Валерия");
+    teamLabel->setText("Команда «Счётная палата» | Севрук Андрей, Милякова Анна, Чопко Валерия");
     teamLabel->setAlignment(Qt::AlignCenter);
     teamLabel->setFont(QFont("Arial", 12, QFont::Bold));
     teamLabel->setStyleSheet("color: #1f2937; background-color: rgba(230, 245, 255, 220); padding: 8px; border: 1px solid #3b82f6; border-radius: 8px;");
