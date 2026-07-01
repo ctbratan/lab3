@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     , currentWordIndex(0)
     , rhymeRunning(false)
     , highlightedLabel(nullptr)
+    , teamLabel(nullptr)
+    , aboutButton(nullptr)
     , outPlayer(nullptr)
     , fireworksPlayer(nullptr)
     , outAudioOutput(nullptr)
@@ -23,7 +25,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 {
     setFixedSize(1200, 800);
-    setWindowTitle("Считалочка");
+    setWindowTitle("Считалочка — командная версия");
+
+    teamLabel = new QLabel(this);
+    teamLabel->setText("Команда «Счётная палата» | Севрук Андрей, Милякова Анна, Чопко Валерия");
+    teamLabel->setAlignment(Qt::AlignCenter);
+    teamLabel->setFont(QFont("Arial", 12, QFont::Bold));
+    teamLabel->setStyleSheet("color: #1f2937; background-color: rgba(230, 245, 255, 220); padding: 8px; border: 1px solid #3b82f6; border-radius: 8px;");
+    teamLabel->setGeometry(220, 10, 760, 40);
+    teamLabel->show();
+
+    aboutButton = new QPushButton("О проекте", this);
+    aboutButton->setGeometry(width() - 140, 10, 120, 40);
+    aboutButton->setFont(QFont("Arial", 10, QFont::Bold));
+    aboutButton->setStyleSheet("background-color: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px;");
+    connect(aboutButton, &QPushButton::clicked, this, &MainWindow::showTeamInfo);
 
     nextWordButton = new QPushButton("Начать считалку", this);
     nextWordButton->setGeometry(width()/2 - 100, height() - 60, 200, 40);
@@ -80,10 +96,30 @@ MainWindow::~MainWindow()
 {
     delete rhymeTimer;
     delete nextWordButton;
+    delete aboutButton;
+    delete teamLabel;
     delete outPlayer;
     delete fireworksPlayer;
     delete outAudioOutput;
     delete fireworksAudioOutput;
+}
+
+QString MainWindow::teamInfoText() const
+{
+    return "Проект: Считалочка\n"
+           "Командная версия для учебной практики\n\n"
+           "Команда: «Счётная палата»\n"
+           "Участники команды:\n"
+           "• Севрук Андрей Сергеевич — работа с интерфейсом и основной логикой приложения;\n"
+           "• Милякова Анна — работа с ресурсами, считалками и оформлением проекта;\n"
+           "• Чопко Валерия — тестирование, документация и подготовка проекта к GitHub.\n\n"
+           "Программа размещает фотографии участников по кругу, выбирает случайную считалку "
+           "и последовательно исключает участников до определения победителя.";
+}
+
+void MainWindow::showTeamInfo()
+{
+    QMessageBox::information(this, "О проекте", teamInfoText());
 }
 
 QVector<QString> MainWindow::loadRhymes(const QString &filePath)

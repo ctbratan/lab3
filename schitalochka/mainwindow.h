@@ -21,6 +21,7 @@ public:
 private slots:
     void onNextWordButtonClicked();
     void updateRhymeWord();
+    void showTeamInfo();
 
 private:
     QPushButton *nextWordButton;
@@ -35,6 +36,8 @@ private:
     bool rhymeRunning;
     QLabel *highlightedLabel;
     QLabel *currentRhymeWordLabel;
+    QLabel *teamLabel;
+    QPushButton *aboutButton;
 
     QMediaPlayer *outPlayer;
     QMediaPlayer *fireworksPlayer;
@@ -54,6 +57,7 @@ private:
     void highlightCurrentPerson();
     void clearAllWordLabels();
     void loadSounds();
+    QString teamInfoText() const;
 };
 
 #endif // MAINWINDOW_H
